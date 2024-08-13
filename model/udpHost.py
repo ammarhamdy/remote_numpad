@@ -6,21 +6,44 @@ keyboard = Controller()
 
 keys = (
     None,
-    "1", "2", "3",
-    "4", "5", "6",
-    "7", "8", "9",
-    "0", ".", Key.esc,
-    Key.print_screen, Key.tab, "=",
-    None, None, None,
-    None, None, "/",
-    "*", Key.backspace, "-",
-    "+", Key.enter, None,
-    None, None, None,
-    Key.end, Key.down, Key.page_down,
-    Key.left, None, Key.right,
-    Key.home, Key.up, Key.page_up,
-    Key.insert, Key.delete, "{",
-    "}", "[", "]"
+    KeyCode.from_char(char="1"),
+    KeyCode.from_char(char="2"),
+    KeyCode.from_char(char="3"),
+    KeyCode.from_char(char="4"),
+    KeyCode.from_char(char="5"),
+    KeyCode.from_char(char="6"),
+    KeyCode.from_char(char="7"),
+    KeyCode.from_char(char="8"),
+    KeyCode.from_char(char="9"),
+    KeyCode.from_char(char="0"),
+    KeyCode.from_char(char="."),
+    Key.esc,
+    Key.print_screen,
+    Key.tab,
+    KeyCode.from_char(char="="),
+    None, None, None, None, None,
+    KeyCode.from_char(char="/"),
+    KeyCode.from_char(char="*"),
+    Key.backspace,
+    KeyCode.from_char(char="-"),
+    KeyCode.from_char(char="+"),
+    Key.enter,
+    None, None, None, None,
+    Key.end,
+    Key.down,
+    Key.page_down,
+    Key.left,
+    None,
+    Key.right,
+    Key.home,
+    Key.up,
+    Key.page_up,
+    Key.insert,
+    Key.delete,
+    KeyCode.from_char(char="{"),
+    KeyCode.from_char(char="}"),
+    KeyCode.from_char(char="["),
+    KeyCode.from_char(char="]"),
 )
 
 
@@ -30,10 +53,7 @@ def press_key(key_index):
     value = keys[key_index]
     if value is None:
         return
-    if type(value) is str:
-        keyboard.tap(KeyCode(char=value))
-    else:
-        keyboard.tap(value)
+    keyboard.tap(value)
 
 
 class Host:
