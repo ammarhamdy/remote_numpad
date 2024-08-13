@@ -9,9 +9,8 @@ class Client:
         try:
             # if the server not open this line make error.
             self.socket_client.connect((ip, port))
-        except Exception as ex:
-            print(ex)
-            print("make sure that the server is running.")
+        except Exception as error:
+            print(f"make sure that the server is running: {error}")
         self.socket_client.settimeout(2)
 
     def close(self):

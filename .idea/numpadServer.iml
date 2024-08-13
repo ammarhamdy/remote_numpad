@@ -3,8 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/auto_mouse_venv" />
+      <excludeFolder url="file://$MODULE_DIR$/numpad_venv/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/venv/numpad_venv" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Python 3.12 (numpadServer)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

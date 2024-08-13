@@ -1,22 +1,23 @@
-from threading import Thread
-from time import sleep
-
-from model import UDPServer
 from model.network import get_my_ip, validate_ip_address
 from view.mainView import MainView
 from tkinter import Event
-from values.string import title
+from values.string import app_name
 from model.typewriter import Typewriter
+from time import sleep
+from threading import Thread
+from model.udpHost import Host
 
 MAIN_VIEW: MainView
+HOST: Host
 pointer_x, pointer_y = 0, 0
 pointer2_x, pointer2_y = 0, 0
 window_x, window_y = 0, 0
-HOST: UDPServer
+is_minimized = False
 
 
 def init_main_controller(main_view: MainView):
     global window_x, window_y, MAIN_VIEW, HOST
+    HOST = None
     MAIN_VIEW = main_view
     window_position = main_view.window.geometry().split("+")
     window_x = int(window_position[1])
@@ -29,18 +30,44 @@ def init_main_controller(main_view: MainView):
 
 
 def lunch():
-    Thread(
-        target=_lunch,
-        daemon=True
-    ).start()
-
-
-def _lunch():
     ip_address = get_my_ip()
-    Typewriter(title).start_typing(MAIN_VIEW.main_label)
-    sleep(Typewriter.get_required_typing_millis(title) + 1)
+    create_connection(ip_address)
+    Thread(target=_lunch, args=(ip_address,), daemon=False).start()
+    MAIN_VIEW.show()
+
+
+def _lunch(ip_address):
+    global MAIN_VIEW, HOST
+    Typewriter(app_name).typing_sentence(MAIN_VIEW.main_label)
+    sleep(Typewriter.get_required_typing_millis(app_name))
     MAIN_VIEW.add_widgets()
     show_connection_status(ip_address)
+    MAIN_VIEW.main_label.bind("<Double-Button-1>", toggle_window_size)
+
+
+def create_connection(ip_address):
+    global HOST
+    has_host = False
+    try:
+        HOST = Host(ip_address)
+        has_host = True
+    except Exception as error:
+        print("cannot create host:", error)
+    if has_host:
+        try:
+            HOST.start_receiving()
+        except Exception as error:
+            print("while trying to receive:", error)
+
+
+def toggle_window_size(_):
+    global is_minimized
+    if is_minimized:
+        MAIN_VIEW.maximize_window()
+        is_minimized = False
+    else:
+        MAIN_VIEW.minimize_window()
+        is_minimized = True
 
 
 def show_connection_status(ip_address):
@@ -68,7 +95,7 @@ def init_pointer2_position(press_event):
 def drag_window(motion_event: Event):
     global pointer_x, pointer_y, window_x, window_y
     # when mouse is pressing on window frame.
-    if motion_event.state == 272:
+    if motion_event.state == 272:  # 272 or 256
         x = window_x + (motion_event.x - pointer_x)
         y = window_y + (motion_event.y - pointer_y)
         MAIN_VIEW.window.geometry("+%d+%d" % (x, y))
@@ -86,7 +113,9 @@ def drag_window_by_pointer2(motion_event: Event):
 
 
 def exit_window():
-    global MAIN_VIEW
+    global MAIN_VIEW, HOST
+    if HOST is not None:
+        HOST.close()
     MAIN_VIEW.exit()
 
 
@@ -94,5 +123,3 @@ if __name__ == "__main__":
     main_v = MainView()
     init_main_controller(main_v)
     lunch()
-    main_v.show()
-
