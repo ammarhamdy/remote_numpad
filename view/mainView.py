@@ -48,12 +48,11 @@ def get_reconnect_button(parent_layout):
         background=BLACK,
         foreground=WHITE,
         activebackground=BLACK,
-        activeforeground=GRAY,
-        state="disabled"
+        activeforeground=GRAY
     )
 
 
-def get_status_label(parent_layout, text: str):
+def get_status_label(parent_layout, text: str, anchor:str="center"):
     return Label(
         parent_layout,
         text=text,
@@ -61,7 +60,7 @@ def get_status_label(parent_layout, text: str):
         background=BLACK,
         foreground=WHITE,
         wraplength=dimen.window_width - dimen.window_padding,
-        anchor="center"
+        anchor=anchor
     )
 
 
@@ -76,6 +75,7 @@ class MainView:
         self.exit_button = get_circle_text_button(self.window, RED)
         self.reconnect_button = get_reconnect_button(self.window)
         self.status_label = get_status_label(self.window, "")
+        self.bottom_label = get_status_label(self.window, "", "w")
         self._add_widgets()
 
     def config_window(self):
@@ -118,6 +118,12 @@ class MainView:
             width=dimen.window_width - (dimen.small_button_size * 2 + dimen.window_padding * 2),
             height=dimen.small_button_size
         )
+        self.bottom_label.place(
+            x=dimen.window_padding,
+            y=dimen.window_height - dimen.small_button_size - dimen.window_padding,
+            width=dimen.window_width - dimen.window_padding * 2,
+            height=dimen.small_button_size
+        )
 
     def show(self):
         self.window.mainloop()
@@ -144,17 +150,10 @@ class MainView:
             f"{dimen.window_width}x{dimen.window_height}"
         )
 
-    # def show_connected_and_receiving(self):
-    #     self.window.config(background=GREEN)
-    #     self.status_label["text"] = connected_well
-    #     self.main_label["text"] = receiving
-    #     self.reconnect_button["state"] = "disabled"
-
     def show_no_connection_message(self):
         if self.is_alive:
             self.window.config(background=RED)
             self.status_label["text"] = cant_not_start
-            self.reconnect_button["state"] = "normal"
             self.main_label["text"] = connection_failed_mess
 
     def show_connected(self, ip_address):
@@ -168,4 +167,6 @@ class MainView:
 
 if __name__ == "__main__":
     main_view = MainView()
+    main_view._add_widgets()
+    main_view.add_widgets()
     main_view.show()

@@ -1,5 +1,5 @@
 from _socket import socket, AF_INET, SOCK_DGRAM
-from concurrent.futures import ThreadPoolExecutor
+from threading import Thread
 from pyautogui import press
 
 keys = (
@@ -18,7 +18,7 @@ keys = (
     "left", None, "right",
     "home", "up", "pgup",
     "insert", "delete", "{",
-    "}", "[", "]"
+    "}", "(", ")"
 )
 
 
@@ -32,7 +32,6 @@ def press_key(key_index):
 
 
 class Host:
-    executor = ThreadPoolExecutor(max_workers=1)
     port_number = 1057
     close_code = 90
 
@@ -44,7 +43,7 @@ class Host:
 
     def start_receiving(self):
         self.is_receiving = True
-        Host.executor.submit(self._receiving)
+        Thread(target=self._receiving, daemon=False).start()
 
     def _receiving(self):
         try:
@@ -76,8 +75,6 @@ class Host:
         self.is_receiving = False
         # shutdown the server.
         self.socket.close()
-        # shut down the worker (close thread).
-        Host.executor.shutdown(wait=False)
 
 
 if __name__ == "__main__":

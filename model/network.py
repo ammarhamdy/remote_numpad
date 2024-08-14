@@ -1,5 +1,7 @@
 from _socket import socket, AF_INET, SOCK_DGRAM
 from ipaddress import IPv4Address
+import subprocess
+import platform
 
 
 def validate_ip_address(address: str):
@@ -25,8 +27,37 @@ def get_my_ip():
         soc.close()
     return ip_address
 
+def get_connected_ssid():
+    os_name = platform.system()
+
+    try:
+        if os_name == "Windows":
+            # Windows command
+            result = subprocess.check_output(["netsh", "wlan", "show", "interfaces"])
+            result = result.decode("utf-8", errors="ignore").split("\n")
+            for line in result:
+                if "SSID" in line:
+                    ssid = line.split(":")[1].strip()
+                    return ssid
+
+        elif os_name == "Linux":
+            # Linux command
+            result = subprocess.check_output(["nmcli", "-t", "-f", "active,ssid", "dev", "wifi"])
+            result = result.decode("utf-8", errors="ignore").split("\n")
+            for line in result:
+                if line.startswith("yes:"):
+                    ssid = line.split(":")[1]
+                    return ssid
+
+    except subprocess.CalledProcessError:
+        return None
+
+    return None
+
+
 
 if __name__ == "__main__":
     my_address = get_my_ip()
     print(my_address)
     print(validate_ip_address(my_address))
+    print(get_connected_ssid())
