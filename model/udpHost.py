@@ -28,6 +28,7 @@ def press_key(key_index):
     value = keys[key_index]
     if value is None:
         return
+    print(f">>{value}")
     press(value)
 
 

@@ -84,6 +84,7 @@ class MainView:
         self.window.geometry(f"{dimen.window_width}x{dimen.window_height}+{x}+{y}")
         self.window.config(background=WHITE)
         self.window.overrideredirect(True)
+        self.window.wm_attributes("-topmost", True)
 
     def _add_widgets(self):
         self.back_ground_layout.place(

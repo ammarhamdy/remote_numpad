@@ -7,7 +7,6 @@
     <list default="true" id="ab8c2512-ab78-4d53-b4ba-ce73f0bd253a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controller/mainViewController.py" beforeDir="false" afterPath="$PROJECT_DIR$/controller/mainViewController.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/network.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/network.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/udpHost.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/udpHost.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/view/mainView.py" beforeDir="false" afterPath="$PROJECT_DIR$/view/mainView.py" afterDir="false" />
     </list>
@@ -35,22 +34,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.UDPServer.executor": "Run",
-    "Python.main.executor": "Run",
-    "Python.mainView.executor": "Run",
-    "Python.mainViewController.executor": "Run",
-    "Python.network.executor": "Run",
-    "Python.simpleClint.executor": "Run",
-    "Python.simpleHost.executor": "Run",
-    "Python.udpHost.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "last_opened_file_path": "/home/am/python/numpadServer/numpad_venv/bin/python3.12",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.UDPServer.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainView.executor&quot;: &quot;Run&quot;,
+    &quot;Python.mainViewController.executor&quot;: &quot;Run&quot;,
+    &quot;Python.network.executor&quot;: &quot;Run&quot;,
+    &quot;Python.simpleClint.executor&quot;: &quot;Run&quot;,
+    &quot;Python.simpleHost.executor&quot;: &quot;Run&quot;,
+    &quot;Python.udpHost.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/media/am/AMMAR_32/numpadServer&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/test" />
@@ -184,7 +183,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-ce3d9afa04ac-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.347" />
+        <option value="bundled-python-sdk-abccbe9d933a-ba05f1cad1b1-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.20224.428" />
       </set>
     </attachedChunks>
   </component>

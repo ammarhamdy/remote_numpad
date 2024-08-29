@@ -6,6 +6,7 @@ from model.typewriter import Typewriter
 from time import sleep
 from threading import Thread
 from model.udpHost import Host
+from platform import system
 
 MAIN_VIEW: MainView
 host: Host
@@ -26,10 +27,14 @@ def init_main_controller(main_view: MainView):
     window_y = int(window_position[2])
     main_view.exit_button.config(command=exit_window)
     main_view.main_label.bind("<ButtonPress>", init_pointer_position)
-    main_view.main_label.bind("<Motion>", drag_window)
     main_view.status_label.bind("<ButtonPress>", init_pointer2_position)
-    main_view.status_label.bind("<Motion>", drag_window_by_pointer2)
     main_view.reconnect_button.bind("<ButtonPress>", reconnect)
+    if system() == "Linux":
+        main_view.main_label.bind("<Motion>", drag_window)
+        main_view.status_label.bind("<Motion>", drag_window_by_pointer2)
+    else:
+        main_view.main_label.bind("<Motion>", drag_window_on_win_system)
+        main_view.status_label.bind("<Motion>", drag_window_by_pointer2_on_win_system)
 
 
 def lunch():
@@ -136,7 +141,17 @@ def init_pointer2_position(press_event):
 def drag_window(motion_event: Event):
     global pointer_x, pointer_y, window_x, window_y
     # when mouse is pressing on window frame.
-    if motion_event.state == 272:  # 272 or 256
+    if motion_event.state == 272:
+        x = window_x + (motion_event.x - pointer_x)
+        y = window_y + (motion_event.y - pointer_y)
+        MAIN_VIEW.window.geometry("+%d+%d" % (x, y))
+        window_x, window_y = x, y
+
+
+def drag_window_on_win_system(motion_event: Event):
+    global pointer_x, pointer_y, window_x, window_y
+    # when mouse is pressing on window frame.
+    if motion_event.state == 264:  # 256
         x = window_x + (motion_event.x - pointer_x)
         y = window_y + (motion_event.y - pointer_y)
         MAIN_VIEW.window.geometry("+%d+%d" % (x, y))
@@ -147,6 +162,16 @@ def drag_window_by_pointer2(motion_event: Event):
     global pointer2_x, pointer2_y, window_x, window_y
     # when mouse is pressing on window frame.
     if motion_event.state == 272:
+        x = window_x + (motion_event.x - pointer2_x)
+        y = window_y + (motion_event.y - pointer2_y)
+        MAIN_VIEW.window.geometry("+%d+%d" % (x, y))
+        window_x, window_y = x, y
+
+
+def drag_window_by_pointer2_on_win_system(motion_event: Event):
+    global pointer2_x, pointer2_y, window_x, window_y
+    # when mouse is pressing on window frame.
+    if motion_event.state == 264: # 256
         x = window_x + (motion_event.x - pointer2_x)
         y = window_y + (motion_event.y - pointer2_y)
         MAIN_VIEW.window.geometry("+%d+%d" % (x, y))
